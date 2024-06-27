@@ -1,41 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql
+  name: backend
   namespace: expense
   labels:
-    app: mysql
+    app: backend
     project: expense
-    tier: database
+    tier: app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: mysql
+      app: backend
       project: expense
-      tier: database
+      tier: app
   template:
     metadata:
       labels:
-        app: mysql
+        app: backend
         project: expense
-        tier: database
+        tier: app
     spec:
       containers:
-      - name: mysql
-        image: joindevops/mysql:v1.0
+      - name: backend
+        image: joindevops/backend:v1.0
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: backend
   namespace: expense
 spec:
   selector:
-    app: mysql
+    app: backend
     project: expense
-    tier: database
+    tier: app
   ports:
   - protocol: TCP
-    port: 3306 #service-port
-    targetPort: 3306 #target-port
+    port: 8080 #service-port
+    targetPort: 8080 #target-port
