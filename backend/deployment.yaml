@@ -24,6 +24,10 @@ spec:
       containers:
       - name: backend
         image: joindevops/backend:v1.0
+      initContainers:
+      - name: init-myservice
+        image: busybox:1.28
+        command: ['sh', '-c', "until nslookup mysql; do echo waiting for myservice; sleep 2; done"]
 ---
 apiVersion: v1
 kind: Service
