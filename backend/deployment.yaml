@@ -24,6 +24,15 @@ spec:
       containers:
       - name: backend
         image: joindevops/backend:v1.0
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            httpHeaders:
+            - name: Custom-Header
+              value: Awesome
+          initialDelaySeconds: 3
+          periodSeconds: 3
       initContainers:
       - name: init-myservice
         image: busybox:1.28
